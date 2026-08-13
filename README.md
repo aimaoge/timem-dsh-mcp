@@ -39,7 +39,12 @@ npx --yes github:aimaoge/timem-dsh-mcp --file /path/to/cordis.patch.yml --key sk
 
 # 只预览不落盘
 npx --yes github:aimaoge/timem-dsh-mcp --dry-run --key sk-xxxx
+
+# 装完 TiMEM 后先验证 key/URL 是否可用（不修改配置）
+npx --yes github:aimaoge/timem-dsh-mcp --verify --key sk-xxxx --user-id usr_xxx
 ```
+
+> 每次写入配置后脚本会**自动验证**连接（认证/工具清单），key 错、URL 错、服务未启动都会给出明确提示；`--no-verify` 可跳过。
 
 > 本机 HTTPS 拉取若报 `UNABLE_TO_VERIFY_LEAF_SIGNATURE`（TLS 被中间人拦截；SSH 通道同样会经 HTTPS 下载 tarball）：
 > - PowerShell：`$env:npm_config_strict_ssl='false'; npx --yes github:aimaoge/timem-dsh-mcp`
@@ -56,6 +61,8 @@ npx --yes github:aimaoge/timem-dsh-mcp --dry-run --key sk-xxxx
 | `--url <url>` | MCP 端点，默认 `https://api.timem.cloud/mcp` |
 | `--server-name <name>` | 工具命名空间，默认 `timem` |
 | `--dry-run` | 只打印将要写入的内容，不修改文件 |
+| `--verify` | 只验证 MCP 端点连通/认证/工具清单，不修改配置 |
+| `--no-verify` | 写入配置后跳过自动验证 |
 | `-y, --yes` | 跳过确认 |
 | `-h, --help` | 帮助 |
 
@@ -72,8 +79,8 @@ node dsh-add-timem-mcp.mjs [选项]
 
 ## 版本
 
-- 当前版本：**v0.1.0**，查看：`npx --yes github:aimaoge/timem-dsh-mcp --version`
-- 固定版本（可复现）：`npx --yes github:aimaoge/timem-dsh-mcp#v0.1.0`
+- 当前版本：**v0.2.0**，查看：`npx --yes github:aimaoge/timem-dsh-mcp --version`
+- 固定版本（可复现）：`npx --yes github:aimaoge/timem-dsh-mcp#v0.2.0`
 - 检查是否有新版本：`npx --yes github:aimaoge/timem-dsh-mcp --check-update`
 
 > **升级机制说明**：`npx github:...` 不带 tag 时指向默认分支最新代码，但 npx 对同一 spec 有缓存，**不会自动感知新版本**——升级到最新请先 `npm cache clean --force` 再重跑；或直接用 `#vX.Y.Z` 固定到新 tag。
