@@ -3,7 +3,7 @@
  * dsh-add-timem-memory.mjs — 一键向 DeepSeek Harness 集成 TiMEM 主平台记忆（MCP 桥接 + skill 钩子）
  *
  * 功能：
- *   1. 自动搜索 DSH 安装目录下的 cordis.patch.yml
+ *   1. 自动搜索 DSH 安装目录下的 cordis.yml
  *      （$DSH_HOME → ~/.dsh → npm npx 缓存目录，可 --file 覆盖）
  *   2. 命令行追问 API Key（粘贴输入，不回显；可 --key 免交互）
  *   3. 命令行追问用户 ID（X-TiMEM-User-Id，可留空；可 --user-id 免交互）
@@ -89,8 +89,8 @@ function printHelp() {
   一键向 DeepSeek Harness 集成 TiMEM 记忆：写 MCP 桥接配置 + 装配套 skill + 验证连接 + 重启引导。
 
 安装:
-  （无参数）          自动查找 cordis.patch.yml + 交互输入 key/user-id + 验证 + 装 skill + 询问重启
-  --file <path>       指定 cordis.patch.yml（跳过自动查找）
+  （无参数）          自动查找 cordis.yml + 交互输入 key/user-id + 验证 + 装 skill + 询问重启
+  --file <path>       指定 cordis.yml（跳过自动查找）
   --key <key>         API Key（优先级: --key > 环境变量 TiMEM_API_KEY > 交互输入）
   --user-id <id>      用户 ID（优先级: --user-id > TiMEM_USER_ID > 交互输入，可留空）
   --url <url>         MCP 端点，默认 ${DEFAULTS.url}
@@ -198,7 +198,7 @@ function candidateRoots() {
   return [...roots].filter(fs.existsSync);
 }
 
-/** 在候选根下递归寻找所有 cordis.patch.yml（跳过 node_modules，限制深度）。 */
+/** 在候选根下递归寻找所有 cordis.yml（跳过 node_modules，限制深度）。 */
 function findPatchFiles(roots, maxDepth = 8) {
   const found = [];
   const walk = (dir, depth) => {
@@ -213,7 +213,7 @@ function findPatchFiles(roots, maxDepth = 8) {
       if (e.name === 'node_modules') continue;
       const p = path.join(dir, e.name);
       if (e.isDirectory()) walk(p, depth + 1);
-      else if (e.name === 'cordis.patch.yml') found.push(p);
+      else if (e.name === 'cordis.yml') found.push(p);
     }
   };
   for (const r of roots) walk(r, 0);
@@ -639,7 +639,7 @@ async function resolveConfigFile(opts) {
     return opts.file;
   }
   const files = findPatchFiles(candidateRoots());
-  if (files.length === 0) throw new Error('未找到 cordis.patch.yml（查找位置: $DSH_HOME、~/.dsh、npm npx 缓存），请用 --file 指定');
+  if (files.length === 0) throw new Error('未找到 cordis.yml（查找位置: $DSH_HOME、~/.dsh、npm npx 缓存），请用 --file 指定');
   return pickFile(files);
 }
 
@@ -787,7 +787,7 @@ async function main() {
     const files = findPatchFiles(candidateRoots());
     if (files.length === 0) {
       console.error(
-        '[错误] 未找到 cordis.patch.yml。\n' +
+        '[错误] 未找到 cordis.yml。\n' +
         '  请确认 DSH 已安装（查找位置: $DSH_HOME、~/.dsh、npm npx 缓存），\n' +
         '  或用 --file 显式指定路径。'
       );

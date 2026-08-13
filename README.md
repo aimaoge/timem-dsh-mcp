@@ -18,7 +18,7 @@
 }
 ```
 
-本工具把配置以 `@deepseek-ai/dsh-mcp-client` 插件实例写入 DSH profile 的 `cordis.patch.yml`，并**自动安装配套 skill**（`timem-general-memory` 等）。重启 DSH host 后：工具以 `mcp__timem__*` 命名注册，skill 提供"何时检索、何时写入"的钩子——**MCP 工具 + skill 才是完整记忆链路**。
+本工具把配置以 `@deepseek-ai/dsh-mcp-client` 插件实例写入 DSH profile 的 `cordis.yml`，并**自动安装配套 skill**（`timem-general-memory` 等）。重启 DSH host 后：工具以 `mcp__timem__*` 命名注册，skill 提供"何时检索、何时写入"的钩子——**MCP 工具 + skill 才是完整记忆链路**。
 
 ## 前置条件
 
@@ -31,11 +31,11 @@
 ## 快速开始
 
 ```bash
-# 自动查找 cordis.patch.yml + 交互式输入 API Key 与用户 ID（粘贴不回显，用户 ID 可留空）
+# 自动查找 cordis.yml + 交互式输入 API Key 与用户 ID（粘贴不回显，用户 ID 可留空）
 npx --yes github:aimaoge/timem-dsh-memory
 
 # 指定配置文件 / 免交互（脚本、CI 用）
-npx --yes github:aimaoge/timem-dsh-memory --file /path/to/cordis.patch.yml --key sk-xxxx --user-id usr_xxx -y
+npx --yes github:aimaoge/timem-dsh-memory --file /path/to/cordis.yml --key sk-xxxx --user-id usr_xxx -y
 
 # 只预览不落盘
 npx --yes github:aimaoge/timem-dsh-memory --dry-run --key sk-xxxx
@@ -56,7 +56,7 @@ npx --yes github:aimaoge/timem-dsh-memory --verify --key sk-xxxx --user-id usr_x
 
 | 选项 | 说明 |
 |---|---|
-| `--file <path>` | 指定 `cordis.patch.yml`（跳过自动查找） |
+| `--file <path>` | 指定 `cordis.yml`（跳过自动查找） |
 | `--key <key>` | 直接提供 API Key（优先级：`--key` > 环境变量 `TiMEM_API_KEY` > 交互输入） |
 | `--user-id <id>` | TiMEM 用户 ID（优先级：`--user-id` > `TiMEM_USER_ID` > 交互输入，可留空） |
 | `--url <url>` | MCP 端点，默认 `https://api.timem.cloud/mcp` |
