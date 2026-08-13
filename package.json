@@ -1,14 +1,14 @@
 {
-  "name": "timem-dsh-mcp",
-  "version": "0.4.0",
+  "name": "timem-dsh-memory",
+  "version": "0.5.0",
   "description": "一键向 DeepSeek Harness 追加 TiMEM 主平台 MCP 桥接：自动查找 cordis.patch.yml，交互式输入 API Key 与用户 ID，幂等追加/更新配置",
   "type": "module",
   "bin": {
-    "dsh-add-timem-mcp": "./dsh-add-timem-mcp.mjs"
+    "dsh-add-timem-memory": "./dsh-add-timem-memory.mjs"
   },
-  "main": "./dsh-add-timem-mcp.mjs",
+  "main": "./dsh-add-timem-memory.mjs",
   "files": [
-    "dsh-add-timem-mcp.mjs", "skills",
+    "dsh-add-timem-memory.mjs", "skills",
     "README.md"
   ],
   "engines": {
@@ -23,6 +23,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aimaoge/timem-dsh-mcp.git"
+    "url": "https://github.com/aimaoge/timem-dsh-memory.git"
   }
 }
