@@ -1,6 +1,6 @@
 {
   "name": "timem-dsh-mcp",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "一键向 DeepSeek Harness 追加 TiMEM 主平台 MCP 桥接：自动查找 cordis.patch.yml，交互式输入 API Key 与用户 ID，幂等追加/更新配置",
   "type": "module",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "main": "./dsh-add-timem-mcp.mjs",
   "files": [
-    "dsh-add-timem-mcp.mjs",
+    "dsh-add-timem-mcp.mjs", "skills",
     "README.md"
   ],
   "engines": {
